@@ -111,7 +111,17 @@ class ModbusTransactionManager:
         if not response:
             return False
 
-        mbap = self.client.framer.decode_data(response)
+        if response[0] != ":":
+            Log.debug(
+                "Patched code activated - skipping initial bytes until start ':' character"
+            )
+            n = 0
+            for c in response:
+                if c == ":":
+                    break
+                n += 1
+
+        mbap = self.client.framer.decode_data(response[n:])
         if (
             mbap.get("slave") != request.slave_id
             or mbap.get("fcode") & 0x7F != request.function_code
