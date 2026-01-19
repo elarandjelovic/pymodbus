@@ -111,9 +111,9 @@ class ModbusTransactionManager:
         if not response:
             return False
 
-        if response[0] != ":":
+        if response[0] != 0x3A:  # ASCII code for ':'
             Log.debug(
-                "Patched code activated - skipping initial bytes until start ':' character"
+                f"Patched code activated - skipping initial bytes until start ':' character. Response: {response}"
             )
             n = 0
             for c in response:
