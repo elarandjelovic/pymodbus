@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.2"]
+requires = ["setuptools>=61.2", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -123,6 +123,11 @@ include-package-data = true
 zip-safe = true
 platforms = ["'Linux'", "'Mac OS X'", "'Win'"]
 
+[tool.setuptools_scm]
+write_to = "pymodbus/_version.py"
+version_scheme = "post-release"
+local_scheme = "node-and-date"
+
 [tool.setuptools.exclude-package-data]
 pymodbus = [
     "examples",
@@ -141,8 +146,8 @@ pymodbus = [
 include = ["pymodbus*"]
 namespaces = false
 
-[tool.setuptools.dynamic]
-version = {attr = "pymodbus.__version__"}
+#[tool.setuptools.dynamic]
+#version = {attr = "pymodbus.__version__"}
 
 [tool.pylint.main]
 ignore-paths = [
